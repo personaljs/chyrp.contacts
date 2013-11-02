@@ -1,0 +1,27 @@
+{% extends "layouts/default.twig" %}
+{% block content %}
+
+<form class="${ feather.safename | escape(true) }" action="contact" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+<fieldset>
+{% for form in forms %}
+<p>
+    <label for="${ form.attr }_field">$form.name
+        {% if form.required =="optional" %}
+        <span class="sub">${ "(optional)" | translate }</span>
+        {% endif %}
+    </label>
+    {% if form.type == "text" %}
+    <input type="$form.type" name="$form.attr" value="" id="${ form.attr }_field" />
+    {% elseif form.type == "text_block" %}
+    <textarea class="wide" rows="12" name="$form.attr" id="${ form.attr }_field" cols="50"></textarea>
+    {% endif %}
+ </p>
+{% endfor %}
+{% if site.form_allow_captcha and enabled_modules.recaptcha %}
+<p>$captcha</p>
+{% endif %}
+<button type="submit" class="right" accesskey="s" id="save" value="true">${ "Save" | translate }</button>
+<input type="hidden" name="hash" value="$site.secure_hashkey" id="hash" />
+</fieldset>
+</form>
+{% endblock %}

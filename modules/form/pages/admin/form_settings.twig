@@ -1,0 +1,57 @@
+{% extends "layout.twig" %}
+
+{% block title %}${ "Form Settings" | translate("form") }{% endblock %}
+
+{% block content %}
+            <form id="form_settings" class="split" action="{% admin "form_settings" %}" method="post">
+                <fieldset>
+                     <p>
+                        <label for="form_default_email">${ "form default email" | translate("comments") }</label>
+                        <input class="text" type="text" name="form_default_email" value="${ site.form_default_email | escape }" id="form_default_email" /> <span class="sub">${ "(recommended)" | translate }</span>
+                        <small>${ "form default email" | translate("comments") }</small>
+                    </p> 
+                    <p>
+                        <label for="title_form">${ "Title form" | translate("form") }</label>
+                        <input class="text code" type="text" name="title_form" value="${ site.title_form | join(", ") | escape }" id="title_form" size="25" />
+                        <small>${ "Format: <code>Title, Body, Email, Name, Phone</code>" | translate("form") }</small>
+                    </p>
+                    <p>
+                        <label for="type_form">${ "Type form" | translate("form") }</label>
+                        <input class="text code" type="text" name="type_form" value="${ site.type_form | join(", ") | escape }" id="type_form" size="25" />
+                        <small>${ "Format: <code>text, text_block</code>" | translate("form") }</small>
+                    </p>
+                    <p>
+                        <label for="required_form">${ "Required form" | translate("form") }</label>
+                        <input class="text code" type="text" name="required_form" value="${ site.required_form | join(", ") | escape }" id="required_form" size="25" />
+                        <small>${ "Format: <code>required or optional</code>" | translate("form") }</small>
+                    </p>                    
+                    <p>
+                        <label for="attr_form">${ "Attribute form" | translate("form") }</label>
+                        <input class="text code" type="text" name="attr_form" value="${ site.attr_form | join(", ") | escape }" id="attr_form" size="25" />
+                        <small>${ "Format: <code>headline, byline, email, name, phone</code>" | translate("form") }</small>
+                    </p>
+                    <p>
+                        <label for="form_allow_email">${ "Allow email " | translate("form") }</label>
+                        <input type="checkbox" class="checkbox" name="form_allow_email"${ site.form_allow_email | checked } /> ${ "enabled" | translate("form") }
+                        <small>${ "Enables mail" | translate("form") }</small>
+                    </p>  
+                    <p>
+                        <label for="form_allow_captcha">${ "Allow captcha" | translate("form") }</label>
+                        <input type="checkbox" class="checkbox" name="form_allow_captcha"${ site.form_allow_captcha | checked } /> ${ "enabled" | translate("form") }
+                        <small>${ "Enables captcha" | translate("form") }</small>
+                    </p>
+                    <p>
+                        <label for="form_default_status">${ "Default form Status" | translate("comments") }</label>
+                        <select name="form_default_status">
+                            <option value="draft"${ "draft" | option_selected(site.form_default_status) }>${ "Draft" | translate }</option>
+                            <option value="public"${ "public" | option_selected(site.form_default_status) }>${ "Public" | translate }</option>
+                            <option value="registered_only"${ "registered_only" | option_selected(site.form_default_status) }>${ "Registered Only" | translate }</option>
+                        </select>
+                    </p>
+                    <p class="buttons">
+                        <button type="submit" class="yay"><img src="$theme_url/images/icons/success.png" alt="success" />${ "Update" | translate }</button>
+                    </p>
+                    <input type="hidden" name="hash" value="$site.secure_hashkey" id="hash" />
+                </fieldset>
+            </form>
+{% endblock %}
